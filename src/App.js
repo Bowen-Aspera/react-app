@@ -1,13 +1,10 @@
-
 import MainPage from './components/authentication/mainPage';
-import Register from './components/authentication/registration';
 
 const App = () => {
   return (
-    <>
-      <Register/>
-      <MainPage/>
-    </>
+    <div style={{ backgroundColor: '#4285F4', minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <MainPage />
+    </div>
   );
 }
 
