@@ -9,8 +9,6 @@ function Register() {
         email: "",
         first_name: "",
         last_name: "",
-        gender: "",
-        birthdate: ""
     });
 
     const [errorPassword, setErrorPassword] = useState("");
@@ -55,22 +53,6 @@ function Register() {
                         onChange={(event) => handleInputChange(event, "last_name")}
                     />
                     <br />
-                    <input
-                        className="input-field"
-                        placeholder="Gender"
-                        onChange={(event) => handleInputChange(event, "gender")}
-                    />
-                    <br />
-                    <p style={{ margin: "5px 0", display: "flex", alignItems: "center" }}>
-                        <label style={{ marginRight: "10px" }}>Birthdate</label>
-                        <input
-                            className="input-field"
-                            placeholder="Birthdate"
-                            type="date"
-                            onChange={(event) => handleInputChange(event, "birthdate")}
-                            style={{ flex: "1" }}
-                        />
-                    </p>
                     <input
                         className="input-field"
                         placeholder="Username"
