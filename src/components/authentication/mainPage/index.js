@@ -49,7 +49,7 @@ const MainPage = () => {
         <br />
       </div>
       <div style={{ display: 'flex', gap: '1rem' }}>
-        <button style={loginButtonStyle} onClick={handleLogin}>Login</button>
+        <button style={loginButtonStyle} type="submit" onClick={handleLogin}>Login</button>
         <button style={registerButtonStyle} onClick={() => navigate('./registration')}>Register</button>
       </div>
     </div>
