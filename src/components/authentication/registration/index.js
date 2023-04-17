@@ -1,54 +1,142 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-
-
-function Register(){
+function Register() {
     const [data, setData] = useState({
-        'username': '',
-        'password': '',
-        'email': '',
-    })
+        username: "",
+        password: "",
+        email: "",
+        first_name: "",
+        last_name: "",
+        gender: "",
+        birthdate: ""
+    });
 
-    const [errorPassword, setErrorPassword] = useState('')
+    const [errorPassword, setErrorPassword] = useState("");
 
-    return(
+    const navigate = useNavigate();
+
+    const handleInputChange = (event, field) => {
+        let d = data;
+        setData({ ...d, [field]: event.target.value });
+    };
+
+    const handleRegister = () => {
+        axios
+            .post("accounts/users/", data)
+            .then((response) => {
+                console.log(response.data);
+                alert("Successfully Registered!");
+            })
+            .catch((error) => {
+                const errorMessage = error.response.data;
+                setErrorPassword(errorMessage.password);
+            });
+    };
+
+    return (
         <>
             <div style={main}>
-                <h1>This is Registration Form</h1>
-                <p>{errorPassword}</p>
-                <input placeholder="Username" onChange={(event) =>{
-                    let d =data;
-                    setData({...d, username: event.target.value});
-                }}/>
-                <input placeholder="Email" onChange={(event) => {
-                    let d =data;
-                    setData({...d, email: event.target.value});
+                <div style={form}>
+                    <h1 style={{ fontSize: "24px", marginTop: "0" }}>
+                        Registration Form
+                    </h1>
+                    <p style={{ color: "red" }}>{errorPassword}</p>
+                    <input
+                        className="input-field"
+                        placeholder="First Name"
+                        onChange={(event) => handleInputChange(event, "first_name")}
+                    />
+                    <br />
+                    <input
+                        className="input-field"
+                        placeholder="Last Name"
+                        onChange={(event) => handleInputChange(event, "last_name")}
+                    />
+                    <br />
+                    <input
+                        className="input-field"
+                        placeholder="Gender"
+                        onChange={(event) => handleInputChange(event, "gender")}
+                    />
+                    <br />
+                    <p style={{ margin: "5px 0", display: "flex", alignItems: "center" }}>
+                        <label style={{ marginRight: "10px" }}>Birthdate</label>
+                        <input
+                            className="input-field"
+                            placeholder="Birthdate"
+                            type="date"
+                            onChange={(event) => handleInputChange(event, "birthdate")}
+                            style={{ flex: "1" }}
+                        />
+                    </p>
+                    <input
+                        className="input-field"
+                        placeholder="Username"
+                        onChange={(event) => handleInputChange(event, "username")}
+                    />
+                    <br />
+                    <input
+                        className="input-field"
+                        placeholder="Email"
+                        onChange={(event) => handleInputChange(event, "email")}
+                    />
+                    <br />
+                    <input
+                        className="input-field"
+                        placeholder="Password"
+                        type="password"
+                        onChange={(event) => handleInputChange(event, "password")}
+                    />
+                    <br />
 
-                }}/>
-                <input placeholder="Password" type="password" onChange={(event) =>{
-                    let d =data;
-                    setData({...d, password: event.target.value});
-
-                }}/>
-                <button onClick={()=> {
-                    axios.post('http://localhost:8000/api/v1/accounts/users/', data).then(response=>{
-                        console.log(response.data)
-                        alert("Successfully Registered!")
-                    }).catch(error=>{
-                        const  errorMessage = error.response.data;
-                        setErrorPassword(errorMessage.password);
-                    })
-                }}>Register</button>
-
+                    <button
+                        style={{
+                            marginTop: "10px",
+                            padding: "8px 16px",
+                            backgroundColor: "#007bff",
+                            color: "#fff",
+                            border: "none"
+                        }}
+                        onClick={handleRegister}
+                    >
+                        Register
+                    </button>
+                    <button
+                        style={{
+                            marginTop: "10px",
+                            marginLeft: "5px",
+                            padding: "8px 16px",
+                            backgroundColor: "#6c757d",
+                            color: "#fff",
+                            border: "none"
+                        }}
+                        onClick={() => navigate("../")}
+                    >
+                        Back
+                    </button>
+                </div>
             </div>
         </>
-    )
+    );
 }
 
 export default Register;
 
 
-const main={
-    textAlign:'center',
+const main = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: "100vh", // Set minimum height to viewport height
+    backgroundColor: "#4285F4"
+}
+
+const form = {
+    backgroundColor: "#fff",
+    padding: "20px",
+    borderRadius: "5px",
+    width: "300px"
 }
